@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import StyledLink from '../utils/styled-link';
 import media from '../utils/media';
+import dateFormat from '../utils/dateFormat';
 
 const Container = styled.div`
   padding: 1rem 0;
@@ -29,7 +30,7 @@ const Post = ({ node }) => (
     <Container>
       <Title>{node.frontmatter.title}</Title>
       <sub>
-        <span>on {node.frontmatter.date}</span>
+        <span>{dateFormat(new Date(node.frontmatter.date))}</span>
         <span>&nbsp; - &nbsp;</span>
         <span>{node.fields.readingTime.text}</span>
       </sub>

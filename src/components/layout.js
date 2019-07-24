@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled, { createGlobalStyle } from 'styled-components';
 import { StaticQuery, graphql } from 'gatsby';
+import { fonts } from 'gatsby-design-tokens';
+import {
+  space,
+  fontSizes,
+  colors,
+  lineHeights,
+  letterSpacings,
+} from '../utils/presets';
 
 import Header from './header';
 import media from '../utils/media';
@@ -29,10 +37,15 @@ const GlobalStyles = createGlobalStyle`
     min-height: 100vh;
     position: relative;
     font-size: 1.6rem;
+
+    *:not[class*=katex] {
+      word-break: break-all;
+      white-space: normal;
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Oswald', ${fonts.header} sans-serif;
   }
 
   h2 {
@@ -46,6 +59,14 @@ const GlobalStyles = createGlobalStyle`
   h4 {
     font-size: 1.6rem;
   }
+
+  li {
+    margin: .3rem 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
   
   code {
     font-family: Menlo,Monaco,"Courier New",Courier,monospace;
@@ -57,9 +78,139 @@ const GlobalStyles = createGlobalStyle`
   }
 
   :not(pre) > code[class*="language-"], pre[class*="language-text"] {
-    background-color: transparent;
     color: inherit;
+    margin: 0 .2rem;
     font-size: medium;
+  }
+
+  :not(pre) > code[class*="language-"] {
+    background-color: transparent;
+  }
+
+  .gatsby-highlight {
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .gatsby-highlight pre[class*='language-'] {
+    padding: 1.5em 1em;
+    border: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gatsby-highlight pre[class*='language-']::before {
+    background: #ddd;
+    color: ${colors.text.header};
+    font-size: ${fontSizes[0]};
+    font-family: ${fonts.monospace.join(';')};
+    letter-spacing: ${letterSpacings.tracked};
+    line-height: ${lineHeights.solid};
+    padding: ${space[1]} ${space[2]};
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .gatsby-highlight pre[class='language-javascript']::before {
+    content: 'js';
+    background: #f7df1e;
+  }
+
+  .gatsby-highlight pre[class='language-js']::before {
+    content: 'js';
+    background: #f7df1e;
+  }
+
+  .gatsby-highlight pre[class='language-jsx']::before {
+    content: 'jsx';
+    background: #61dafb;
+  }
+
+  .gatsby-highlight pre[class='language-graphql']::before {
+    content: 'GraphQL';
+    background: #E10098;
+    color: #fff;
+  }
+
+  .gatsby-highlight pre[class='language-html']::before {
+    content: 'html';
+    background: #005A9C;
+    color: #fff;
+  }
+
+  .gatsby-highlight pre[class='language-css']::before {
+    content: 'css';
+    background: #ff9800;
+    color: #fff;
+  }
+
+  .gatsby-highlight pre[class='language-mdx']::before {
+    content: 'mdx';
+    background: #f9ac00;
+    color: #fff;
+    fontWeight: 400;
+  }
+
+  .gatsby-highlight pre[class='language-shell']::before {
+    content: 'shell';
+  }
+
+  .gatsby-highlight pre[class='language-sh']::before {
+    content: 'sh';
+  }
+
+  .gatsby-highlight pre[class='language-bash']::before {
+    content: 'bash';
+  }
+
+  .gatsby-highlight pre[class='language-yaml']::before {
+    content: 'yaml';
+    background: #ffa8df;
+  }
+
+  .gatsby-highlight pre[class='language-markdown']::before {
+    content: 'md';
+  }
+
+  .gatsby-highlight pre[class='language-json']::before, .gatsby-highlight pre[class='language-json5']::before {
+    content: 'json';
+    background: linen;
+  }
+
+  .gatsby-highlight pre[class='language-diff']::before {
+    content: 'diff';
+    background: #e6ffed;
+  }
+
+  .gatsby-highlight pre[class='language-text']::before {
+    content: 'text';
+    background: #fff;
+  }
+
+  .gatsby-highlight pre[class='language-flow']::before {
+    content: 'flow';
+    background: #E8BD36;
+  }
+
+  .gatsby-code-title {
+    padding: 0.5em 1em;
+    font-family: ${fonts.monospace.join(';')};
+    background-color: #444;
+    color: white;
+    z-index: 0;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+  }
+
+  .gatsby-code-title + .gatsby-highlight pre {
+    margin-top: 0;
+  }
+
+  .gatsby-resp-image-figcaption {
+    padding-top: 0.5rem;
+    text-align: center;
   }
 `;
 

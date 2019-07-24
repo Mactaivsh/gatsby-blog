@@ -5,6 +5,7 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 import { Container, Title, LinkList, Header } from './post-styles';
 import Share from '../components/share';
+import dateFormat from '../utils/dateFormat';
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -24,9 +25,13 @@ class BlogPostTemplate extends React.Component {
                 color: rgba(0, 0, 0, 0.8);
               `}
             >
-              <span>Posted on {post.frontmatter.date}</span>
+              <span>
+                上次更新时间 {dateFormat(new Date(post.frontmatter.date))}
+              </span>
               <span>&nbsp; - &nbsp;</span>
-              <span>{post.fields.readingTime.text}</span>
+              <span>
+                预计阅读时间 {Math.ceil(post.fields.readingTime.minutes)} 分钟
+              </span>
             </sub>
           </Header>
           <div
@@ -80,7 +85,7 @@ export const pageQuery = graphql`
       html
       fields {
         readingTime {
-          text
+          minutes
         }
       }
       frontmatter {

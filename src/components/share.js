@@ -45,7 +45,7 @@ class Share extends Component {
             color: rgb(0, 0, 0);
           `}
         >
-          Share if you liked it:
+          觉得这篇文章很赞? 分享至:
         </p>
         {url && (
           <>

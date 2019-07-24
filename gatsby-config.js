@@ -1,11 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Blog Starter`,
-    description: `A Blog starter`,
-    author: `Boy with Silver Wings`,
-    authorTagline: 'Engineer. Driven by Passion',
+    title: `Macsalvation 👨‍💻‍`,
+    description: `Mactavish's personal blog`,
+    author: `Mactavish`,
+    authorTagline: 'Frontend Developer. Valar Morghulis',
     social: {
-      twitter: `agneymenon`,
+      twitter: `MacSalvation`,
     },
   },
   plugins: [
@@ -22,7 +22,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blog`,
-        path: `${__dirname}/src/content`,
+        path: `${__dirname}/content`,
       },
     },
     {
@@ -42,8 +42,17 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
+          {
+            resolve: `gatsby-remark-katex`,
+            options: {
+              // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
+              strict: `ignore`,
+            },
+          },
+          `gatsby-remark-code-titles`,
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
+          `gatsby-remark-code-titles`,
           `gatsby-remark-smartypants`,
           `gatsby-remark-reading-time`,
         ],
@@ -61,13 +70,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-blog-starter`,
+        name: `Macsalvation`,
         short_name: `starter`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/avatar.png`, // This path is relative to the root of the site.
       },
     },
     'gatsby-plugin-offline',
