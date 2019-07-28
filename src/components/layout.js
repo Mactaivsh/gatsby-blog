@@ -157,6 +157,12 @@ const GlobalStyles = createGlobalStyle`
     content: 'shell';
   }
 
+  .gatsby-highlight pre[class='language-c']::before {
+    content: 'c';
+    color: #fff;
+    background: #555555;
+  }
+
   .gatsby-highlight pre[class='language-sh']::before {
     content: 'sh';
   }
