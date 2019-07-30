@@ -163,6 +163,12 @@ const GlobalStyles = createGlobalStyle`
     background: #555555;
   }
 
+  .gatsby-highlight pre[class='language-java']::before {
+    content: 'java';
+    color: #fff;
+    background: #b07219;
+  }
+
   .gatsby-highlight pre[class='language-sh']::before {
     content: 'sh';
   }
