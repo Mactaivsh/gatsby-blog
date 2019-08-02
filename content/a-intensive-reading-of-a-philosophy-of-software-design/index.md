@@ -28,7 +28,7 @@ tags: [软件设计, 方法论]
 
 ## 写作背景
 
-自从人们开始给计算机写编写程序到现在已经很久了。业界也有很多关于软件开发流程的讨论，比如**敏捷开发 (Agile Development)**。也有很多关于编程工具，比如 debugger，版本控制系统，测试工具的讨论。以及对编程技巧和技术的广泛和深度的分析，比如**面向对象编程 (Object-oriented Programming)**编程和**函数式编程（Functional Programming）**, **设计模式（Design Patterns）**和**算法（Algorithms）**。
+自从人们开始给计算机写编写程序到现在已经很久了。业界也有很多关于软件开发流程的讨论，比如**敏捷开发 (Agile Development)**。也有很多关于编程工具，比如 debugger，版本控制系统，测试工具的讨论。以及对编程技巧和技术的广泛和深度的分析，比如**面向对象编程 (Object-oriented Programming)**和**函数式编程（Functional Programming）**, **设计模式（Design Patterns）**和**算法（Algorithms）**。
 
 但是**软件设计**本身并没有很广泛地被讨论和触及。David Parns 于 1971 年发表的 **[将系统划分为模块的准则 (On the Criteria To Be Used in Decomposing System into Modules)](https://www.win.tue.nl/~wstomv/edu/2ip30/references/criteria_for_modularization.pdf)** 经典论文探讨了一些关于软件设计的基本问题。但是到今天为止，关于软件设计的问题探讨却没有什么明显地进展。
 
@@ -292,7 +292,7 @@ int close(int fd);
 
 ### 信息隐藏（Information hidding）
 
-实现深模块的重要技术之一便是使用**信息隐藏**。这个技术的基本思想是：**每个模块应该封装一些提现设计决策的信息**。这些信息植入在模块的实现当中而不会出现在模块的接口里，因此对其他模块不可见。
+实现深模块的重要技术之一便是使用**信息隐藏**。这个技术的基本思想是：**每个模块应该封装一些体现设计决策的信息**。这些信息植入在模块的实现当中而不会出现在模块的接口里，因此对其他模块不可见。
 
 这些隐藏的信息通常包含了模块的实现机制的细节，比如：
 
