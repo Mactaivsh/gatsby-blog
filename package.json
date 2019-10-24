@@ -11,7 +11,7 @@
     "gatsby-design-tokens": "^1.0.0",
     "gatsby-image": "^2.0.20",
     "gatsby-plugin-catch-links": "^2.0.9",
-    "gatsby-plugin-google-analytics": "^2.0.8",
+    "gatsby-plugin-google-analytics": "^2.1.23",
     "gatsby-plugin-manifest": "^2.0.9",
     "gatsby-plugin-offline": "^2.0.16",
     "gatsby-plugin-react-helmet": "^3.0.2",
