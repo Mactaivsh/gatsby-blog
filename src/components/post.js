@@ -30,9 +30,7 @@ const Post = ({ node }) => (
     <Container>
       <Title>{node.frontmatter.title}</Title>
       <sub>
-        <span>{dateFormat(new Date(node.frontmatter.date))}</span>
-        <span>&nbsp; - &nbsp;</span>
-        <span>{node.fields.readingTime.text}</span>
+        <span>上次更新时间: {dateFormat(new Date(node.frontmatter.date))}</span>
       </sub>
       <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
     </Container>

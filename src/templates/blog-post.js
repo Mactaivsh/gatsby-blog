@@ -26,11 +26,7 @@ class BlogPostTemplate extends React.Component {
               `}
             >
               <span>
-                上次更新时间 {dateFormat(new Date(post.frontmatter.date))}
-              </span>
-              <span>&nbsp; - &nbsp;</span>
-              <span>
-                预计阅读时间 {Math.ceil(post.fields.readingTime.minutes)} 分钟
+                上次更新时间: {dateFormat(new Date(post.frontmatter.date))}
               </span>
             </sub>
           </Header>
@@ -83,11 +79,6 @@ export const pageQuery = graphql`
       id
       excerpt
       html
-      fields {
-        readingTime {
-          minutes
-        }
-      }
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
