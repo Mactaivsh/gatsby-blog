@@ -76,7 +76,7 @@ Service Worker:
 
 ![worker scope diagrams](./worker-scope-diagrams.png)
 
-仔细观察会发现 `Service Worker` 的 `API` 是最多的（也是本章会重点讲解的）, 同时，像 `location` 和 `navigator` 这样的全局对象不同于 `window` 对象下的同名对象，它们是针对 `Web Worker` 所制定的。
+仔细观察会发现 `Service Worker` 的 `API` 是最多的, 同时，像 `location` 和 `navigator` 这样的全局对象不同于 `window` 对象下的同名对象，它们是针对 `Web Worker` 所制定的。
 
 细心的同学可能会有疑问了，似乎还有很多在 `Worker Global Scope` 中可以使用的 `API`，比如：
 
