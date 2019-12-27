@@ -561,7 +561,94 @@ self.addEventListener('connect', event => {
 
 因此为了避免内容的过多集中，我将新开一篇 `Blog` 单独地深入剖析 `Service Worker`, **敬请期待**
 
+### OMT - Off The Main Thread Architectures
+
+每一年，新发布的智能手机都在变得更快（更强的 `CPU`，更大的 `RAM`）
+
+![Benchmark scores taken from Geekbench (single-core) - dassur.ma/things/when-workers](./phone-cpu-scores.png)
+
+然而低端机型的性能似乎从 2014 年开始就没有什么进步，考虑到现在低端芯片的制造成本在不断地降低，与此同时，低端设备的覆盖越来越广（尤其是像印度，尼日利亚这样的国家）
+
+高端机和低端机之间的差距（性能）变得越来越明显。
+
+来自 Google 的工程师 [Das Surma](https://twitter.com/DasSurma) 一直在提倡 `off the Main Thread (简称 OMT)` 的开发理念， 关于使用 `Web Worker` 的问题，他提倡：
+
+> You should always use Web Workers.
+
+接下来的章节是针对他的一些 `Blog` 和 `Talk` 的总结和感受，如果想直接阅读和观看源材料，请滚动至最底部查看 **References**
+
+#### JavaScript 是阻塞的
+
+JavaScript 的运行是阻塞的，尤其是在长任务（long task）在执行的时候，浏览器只能等待 JavaScript 运行完成之后才能处理其他的请求（用户输入，动画，渲染，滚动等），而浏览器的主线程不仅仅只为运行 JavaScript 而服务，它还需要处理页面布局，渲染等一系列工作。
+
+虽然浏览器也采取了一些优化，比如把（CSS 动画，和过度效果放到 `compositor thread` 中运行），但是 JavaScript 的运行仍然对浏览器的主线程有着不可忽视的重大影响。
+
+所以如果我们能够把纯粹进行计算的 JavaScript 逻辑放到 `Worker thread` 中运行，让浏览器主线程只处理 `UI` 相关的工作
+
+#### 一个真实扫雷应用的对比
+
+[**PROXX**](https://github.com/GoogleChromeLabs/proxx/pull/437) Google Chrome 的一个团队出品的一个 Web 版扫雷应用
+
+接下来我们就对比一下，使用 `Worker` 和全部是用主线程的对比，以下是两个版本的页面 url：
+
+- [只使用主线程版本](https://deploy-preview-437--gravitongame.netlify.com/)
+- [使用 Worker 版本](https://proxx.app/)
+
+以下是两个版本的 `Performance profile` 截图对比：
+
+只使用 `Main Thread` 版本：
+
+![proxx main thread version performance profile screenshot](./proxx-main-thread.png)
+
+使用 `Worker Thread` + `Main Thread` 版本：
+
+![proxx worker thread version performance profile screenshot](./proxx-worker-thread.png)
+
+我们可以很明显的观察到：
+
+1. 首先，使用 `Worker` 的版本，**渲染**触发的频率更高（观察截图和火焰图中紫色区域的面积）
+2. 同时，注意截图最上方时间线下面的绿色区域，代表 `FPS` 的抖动情况，我们也可以明显发现，使用 `Worker` 的版本，`FPS` 更加稳定，丢帧更少
+3. 最后，细心的同学可能会发现，截图底部任务触发的区域，只使用主线程的版本**空白的间隙**出现的**频率**比使用 `Worker` 的版本要多，间隙更大。这是因为主线程中其他任务总是要等待 JavsScript 运行完成之后才能处理
+
+#### Worker 并不减少运行 JavaScript 的工作量
+
+使用 `Worker` 可能会让开发者产生一种错觉 —— 运行 `JavaScript` 的工作量变少了。对于主线程来说确实是这样，而对于 `Worker` 来说，工作量仍然在那，因此总共的工作量不变。
+
+作为 `Web` 工程师，我们的任务是尽可能地给用户提供**流畅**的 **GUI** 用户体验，根据 [RAIL](https://developers.google.com/web/fundamentals/performance/rail) 模型，16ms 每帧的渲染是让提供人眼视觉流畅的基础
+
+同时，我们也面临着**低端设备**给**编码实现**带来的挑战：
+
+> 除非我们以满足最低端设备的要求为优先来开发（令人感到痛苦的开发体验），我们几乎永远无法预测编写的代码在当今最低端的设备上是否能无障碍地运行，更别说日后即将出现的那些低端设备了
+
+不过，像使用 [`comlink`](https://github.com/GoogleChromeLabs/comlink) 这样的工具，可以简化我们和 `Worker Thread` 的交互，本篇文章就不赘述其用法了，感兴趣的同学可以自己体验。
+
+#### 框架的困境
+
+现代的前端框架让使用 `OMT` 架构变得非常困难，因为这些框架不仅仅处理 `UI` 相关的任务，还要处理很多非 `UI` 相关的任务，比如 **状态管理**，**VDOM Diffing** 等等。
+
+虽然框架都会利用各种异步的 `task` 来调度这些任务，但是一切工作仍然是在主线程上处理。不过框架毕竟是要在 **开发体验** 和 **设计实现** 上找到平衡，对于像 `Web Worker` 这样完全利用 `Event` 来进行通信的方式，还是带来了一些挑战。
+
+不过我们也还是可以期待，未来是否会有框架针利用 `Web Worker` 并发挥其潜力。
+
+#### The main thread is overworkered & underpaid - video
+
+以下视频是 **Das Surma** 在 [2019 Chrome Dev Summit](https://developer.chrome.com/devsummit/) 上的演讲，感兴趣的同学可以观看一下:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7Rrv9qFMWNM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+#### 总结
+
+`Web Worker` 确实给我们提供了优化 `Web` 应用的新可能，通过使用 `Web Worker` 来合理地调度 JavaScript 运行逻辑，可以在面对无法预测的低端设备和长任务时，保证 `GUI` 依旧是可响应的，让我们的应用更加地 **resilient**。
+
+或许未来，使用 `Worker` 进行编程或许会成为新一代 `Web Application` 的开发标配或是最佳实践。
+
+> **Always bet on the Web !**
+
 ## References
 
 - https://html.spec.whatwg.org/multipage/workers.html
-- https://w3c.github.io/ServiceWorker
+- https://html.spec.whatwg.org/multipage/web-messaging.html#message-ports
+- https://web.dev/off-main-thread/
+- https://dassur.ma/things/when-workers/
+- https://dassur.ma/things/is-postmessage-slow/
+- https://github.com/GoogleChromeLabs/comlink
