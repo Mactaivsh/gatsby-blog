@@ -7,6 +7,18 @@ import { Container, Title, LinkList, Header } from './post-styles';
 import Share from '../components/share';
 import dateFormat from '../utils/dateFormat';
 
+const createUtterancesScript = () => ({
+  __html: `
+  <script src="https://utteranc.es/client.js"
+    repo="https://github.com/Mactaivsh/gatsby-blog"
+    issue-term="pathname"
+    label="📢blog-comments"
+    theme="github-light"
+    crossOrigin="anonymous"
+    async>
+  </script>
+  `,
+});
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
@@ -59,6 +71,7 @@ class BlogPostTemplate extends React.Component {
               )}
             </li>
           </LinkList>
+          <div dangerouslySetInnerHTML={createUtterancesScript()} />
         </Container>
       </Layout>
     );
