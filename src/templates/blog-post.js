@@ -10,7 +10,7 @@ import dateFormat from '../utils/dateFormat';
 const createUtterancesScript = () => ({
   __html: `
   <script src="https://utteranc.es/client.js"
-    repo="https://github.com/Mactaivsh/gatsby-blog"
+    repo="Mactaivsh/gatsby-blog"
     issue-term="pathname"
     label="📢blog-comments"
     theme="github-light"
