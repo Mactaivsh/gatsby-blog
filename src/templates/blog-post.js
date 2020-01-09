@@ -7,18 +7,25 @@ import { Container, Title, LinkList, Header } from './post-styles';
 import Share from '../components/share';
 import dateFormat from '../utils/dateFormat';
 
-const createUtterancesScript = () => ({
-  __html: `
-  <script src="https://utteranc.es/client.js"
-    repo="Mactaivsh/gatsby-blog"
-    issue-term="pathname"
-    label="📢blog-comments"
-    theme="github-light"
-    crossOrigin="anonymous"
-    async>
-  </script>
-  `,
-});
+const UtterancesComments = () => (
+  <section
+    ref={elem => {
+      if (!elem) {
+        return;
+      }
+      const scriptElem = document.createElement('script');
+      scriptElem.src = 'https://utteranc.es/client.js';
+      scriptElem.async = true;
+      scriptElem.crossOrigin = 'anonymous';
+      scriptElem.setAttribute('repo', 'Mactaivsh/gatsby-blog');
+      scriptElem.setAttribute('issue-term', 'pathname');
+      scriptElem.setAttribute('label', '📢blog-comments');
+      scriptElem.setAttribute('theme', 'github-light');
+      elem.appendChild(scriptElem);
+    }}
+  />
+);
+
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
@@ -71,7 +78,7 @@ class BlogPostTemplate extends React.Component {
               )}
             </li>
           </LinkList>
-          <div dangerouslySetInnerHTML={createUtterancesScript()} />
+          <UtterancesComments />
         </Container>
       </Layout>
     );
