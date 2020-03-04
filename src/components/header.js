@@ -16,8 +16,6 @@ const Container = styled.nav`
 const Title = styled.h1`
   font-size: 1.6rem;
   font-weight: 800;
-  letter-spacing: 0.1rem;
-  text-transform: uppercase;
   margin: 0;
 
   ${media.phone`

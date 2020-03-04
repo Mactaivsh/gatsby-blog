@@ -10,17 +10,23 @@ export const Container = styled.article`
   `}
 
   p {
-    line-height: 1.5;
+    line-height: 1.8;
   }
 
   blockquote {
+    padding: 10px 20px;
     margin-left: 0.25rem;
-    font-size: 1.6rem;
-    color: inherit;
+    font-size: 1.75rem;
     font-style: italic;
-    border-left: 0.2rem solid rgb(0, 0, 0);
-    padding-left: 1rem;
-    margin: 1rem 0;
+    color：#444;
+    border-left: 5px solid #eee;
+    margin: 0 0 20px;;
+  }
+
+  blockquote ol:last-child,
+  blockquote p:last-child,
+  blockquote ul:last-child {
+    margin-bottom: 0;
   }
 
   pre {

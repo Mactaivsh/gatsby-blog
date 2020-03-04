@@ -29,7 +29,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'system';
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
     margin: 0;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -45,7 +45,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Oswald', ${fonts.header} sans-serif;
+    font-family: 'Roboto Slab', ${fonts.header} sans-serif;
   }
 
   h2 {
@@ -60,8 +60,13 @@ const GlobalStyles = createGlobalStyle`
     font-size: 1.6rem;
   }
 
+  p {
+    margin: 0 0 1em;
+  }
+
   li {
-    margin: .3rem 0;
+    line-height: 1.5em;
+    margin-top: .5em;
   }
 
   img {
@@ -84,7 +89,11 @@ const GlobalStyles = createGlobalStyle`
   }
 
   :not(pre) > code[class*="language-"] {
-    background-color: transparent;
+    padding: 2px 4px;
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+    white-space: nowrap;
   }
 
   .gatsby-highlight {
